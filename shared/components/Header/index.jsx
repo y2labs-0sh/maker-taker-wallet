@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux-helper'
 import { injectIntl } from 'react-intl'
-import Logo from 'resources/images/logo.svg'
+import Logo from 'resources/images/logo.png'
 import { Menu, Icon, Modal, Layout, Dropdown, message, Button } from 'antd'
 import { Link, withRouter } from 'react-router-dom'
 import CreateWalletForm from 'components/Form/CreateWalletForm'
@@ -165,24 +165,24 @@ export default class Header extends Component {
         <Link className={styles.branding} to="/">
           <img src={Logo} alt="logo" />
         </Link>
-        <Menu mode="horizontal" className={styles.leftMenu} selectedKeys={[this.state.activePath]}>
+        <Menu mode="horizontal" className={styles.leftMenu} selectedKeys={[this.state.activePath]} style={{ background: 'black' }}>
           <Menu.Item key="asset">
-            <Link to="asset">
+            <Link to="asset" style={{ color: 'white' }}>
               {intl.formatMessage({ id: 'Asset' })}
             </Link>
           </Menu.Item>
           <Menu.Item key="loan">
-            <Link to="loan">
+            <Link to="loan" style={{ color: 'white' }}>
               {intl.formatMessage({ id: 'Loan' })}
             </Link>
           </Menu.Item>
           <Menu.Item key="saving">
-            <Link to="saving">
+            <Link to="saving" style={{ color: 'white' }}>
               {intl.formatMessage({ id: 'Saving' })}
             </Link>
           </Menu.Item>
           <Menu.Item key="transaction">
-            <Link to="transaction">
+            <Link to="transaction" style={{ color: 'white' }}>
               {intl.formatMessage({ id: 'Transactions' })}
             </Link>
           </Menu.Item>
@@ -196,12 +196,12 @@ export default class Header extends Component {
               </div>
             </a>
           </Dropdown>
-          <Menu mode="horizontal" selectedKeys={[this.state.activePath]}>
+          <Menu mode="horizontal" selectedKeys={[this.state.activePath]} style={{ background: 'black' }}>
             {/* <Menu.Item key="notification">
                 <Icon type="notification" />
                 </Menu.Item> */}
             <Menu.Item key="setting">
-              <Link to="setting">
+              <Link to="setting" style={{ color: 'white' }}>
                 <Icon type="setting" />
               </Link>
             </Menu.Item>
