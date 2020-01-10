@@ -1,0 +1,21 @@
+.setting {
+  min-height: 200px;
+
+  .settingItem {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .settingLabel {
+      margin-bottom: 6px;
+      min-width: 100px;
+    }
+  }
+
+  .addNode {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: flex-end;
+  }
+}

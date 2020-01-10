@@ -1,0 +1,6 @@
+{
+  "ENV": "production",
+  "RIO_CHAIN_API": "wss://node.staging.riodefi.com",
+  "ADMIN_API": "https://admin-api.staging.riodefi.com",
+  "SCAN_API": "https://scan.staging.riodefi.com"
+}

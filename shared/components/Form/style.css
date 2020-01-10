@@ -1,0 +1,7 @@
+.formContainer {
+  padding: 0.625rem 1.25rem;
+
+  &.center {
+    width: 100%;
+  }
+}

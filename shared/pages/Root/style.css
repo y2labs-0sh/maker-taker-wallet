@@ -1,0 +1,14 @@
+body {
+  background-color: #fafafa;
+}
+
+button {
+  line-height: 1 !important;
+}
+
+.app {
+  .content {
+    padding: 30px 20px;
+    padding-bottom: 50px;
+  }
+}
