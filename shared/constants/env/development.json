@@ -1,6 +1,6 @@
 {
   "ENV": "development",
-  "RIO_CHAIN_API": "wss://node.staging.riodefi.com",
-  "ADMIN_API": "https://admin-api.staging.riodefi.com",
-  "SCAN_API": "https://scan.staging.riodefi.com"
+  "RIO_CHAIN_API": "wss://node.staging.definex.com",
+  "ADMIN_API": "https://admin-api.staging.definex.com",
+  "SCAN_API": "https://scan.staging.definex.com"
 }

@@ -62,7 +62,7 @@ export default class DepositInfo extends Component {
                 {intl.formatMessage({ id: '* Receiving requires {count} confirmation, please be patient' }, { count: 6 })}
               </div>
               {isBTC && <div>
-                {intl.formatMessage({ id: `* If your deposit amount is over 30 BTC, please contact support@riodefi.com, otherwise it won't be confirmed (will be in Pending until you cancel it)` }, { count: 6 })} {/* eslint-disable-line */}
+                {intl.formatMessage({ id: `* If your deposit amount is over 30 BTC, please contact support@definex.com, otherwise it won't be confirmed (will be in Pending until you cancel it)` }, { count: 6 })} {/* eslint-disable-line */}
               </div>}
             </div>
           </Fragment>

@@ -68,7 +68,7 @@ export default class Root extends Component {
 
     return (
       <div className={style.app}>
-        <Title render={intl.formatMessage({ id: 'Riodefi' })} />
+        <Title render={intl.formatMessage({ id: 'Definex' })} />
         <Header />
         <Layout.Content>
           <div className={style.content}>

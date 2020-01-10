@@ -6,7 +6,7 @@ export const initialState = {
   allIds: [RIO_CHAIN_API],
   byId: {
     RIO_CHAIN_API: {
-      name: 'Riodefi',
+      name: 'Definex',
       url: RIO_CHAIN_API
     }
   },

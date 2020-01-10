@@ -5,5 +5,5 @@ const tokenFetcher = async () => 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ey
 const responseTransformer = res => res.data
 const errorTransformer = error => Promise.reject({ message: error.errorMsg })
 
-export const riodefiApi = apiCreator(`${ADMIN_API}/api/v1`, { tokenFetcher, responseTransformer, errorTransformer })
-export const riodefiScanApi = apiCreator(`${SCAN_API}/api/v1`, { responseTransformer })
+export const definexApi = apiCreator(`${ADMIN_API}/api/v1`, { tokenFetcher, responseTransformer, errorTransformer })
+export const definexScanApi = apiCreator(`${SCAN_API}/api/v1`, { responseTransformer })
