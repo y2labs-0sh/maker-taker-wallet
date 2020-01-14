@@ -3,7 +3,7 @@ import deepEqual from 'fast-deep-equal'
 import BTCIcon from 'resources/images/btc.png'
 import RBTCIcon from 'resources/images/rbtc.png'
 import RIOIcon from 'resources/images/rio.png'
-import RIOTIcon from 'resources/images/riot.png'
+import DFXIcon from 'resources/images/riot.png'
 import RSCIcon from 'resources/images/rsc.png'
 
 export const getIcon = (asset) => {
@@ -12,8 +12,8 @@ export const getIcon = (asset) => {
       return BTCIcon
     case 'RIO':
       return RIOIcon
-    case 'RIOT':
-      return RIOTIcon
+    case 'DFX':
+      return DFXIcon
     case 'RBTC':
       return RBTCIcon
     default:

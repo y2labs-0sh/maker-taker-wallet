@@ -47,7 +47,7 @@ export function* getTransactionExecutor(walletId) {
 }
 
 function* setActiveWallet() {
-  yield put(subscribeBalance({ symbol: 'RIOT' }))
+  yield put(subscribeBalance({ symbol: 'DFX' }))
   yield put(subscribeBalance({ symbol: 'RIO', assetId: 8 }))
   yield put(getWalletDepositHistory.requested())
   yield put(getWalletWithdrawHistory.requested())

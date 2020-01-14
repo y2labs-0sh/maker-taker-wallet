@@ -1,5 +1,5 @@
 export const assetMap = {
-  0: 'RIOT',
+  0: 'DFX',
   1: 'BTC',
   2: 'RBTC',
   3: 'RS P1',

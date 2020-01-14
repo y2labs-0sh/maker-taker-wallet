@@ -35,7 +35,7 @@ export const activeBalanceSelector = createSelector(
     const address = activeWallet.address
     const balanceIds = balanceAllIds.filter(id => id.indexOf(`${chain}/${address}`) !== -1)
     const balances = balanceIds.map(id => balanceById[id]).sort((a, b) => String(a.symbol).localeCompare(String(b.symbol)))
-    const riotIndex = balances.findIndex(item => item.symbol === 'RIOT')
+    const riotIndex = balances.findIndex(item => item.symbol === 'DFX')
     const riotBalance = balances.splice(riotIndex, 1)
     let balanceList = [...riotBalance, ...balances]
 
@@ -126,7 +126,7 @@ export const riotBalanceSelector = createSelector(
 export const rioBalanceSelector = createSelector(
   activeBalanceSelector,
   (balance) => {
-    const rioBalance = balance.filter(item => item.id.indexOf('/RIO') !== -1 && item.id.indexOf('/RIOT') === -1)
+    const rioBalance = balance.filter(item => item.id.indexOf('/RIO') !== -1 && item.id.indexOf('/DFX') === -1)
     return rioBalance.length ? rioBalance[0] : null
   }
 )

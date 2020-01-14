@@ -222,7 +222,7 @@ export default class LoanForm extends Component {
                   </div>
                   <div className={style.loanInfo}>
                     <div className={style.loanInfoLabel}>{intl.formatMessage({ id: 'Fee' })}:</div>
-                    <div className={style.loanInfoValue}>0.1 RIOT</div>
+                    <div className={style.loanInfoValue}>0.1 DFX</div>
                   </div>
                   <div className={style.loanInfo}>
                     <div className={style.loanInfoLabel}>{intl.formatMessage({ id: 'You would receive' })}:</div>

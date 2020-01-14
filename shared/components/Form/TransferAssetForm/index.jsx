@@ -138,7 +138,7 @@ export default class TradeAssetForm extends Component {
             {...formItemLayout}
             label={intl.formatMessage({ id: 'Fee' })}
           >
-            <span className="ant-form-text">0.1 RIOT</span>
+            <span className="ant-form-text">0.1 DFX</span>
           </Form.Item>
           <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit" disabled={disabled} loading={loading}>{intl.formatMessage({ id: 'transfer' })}</Button>
