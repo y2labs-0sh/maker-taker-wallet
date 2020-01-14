@@ -9,7 +9,7 @@ const persistConfig = {
   key: 'root',
   storage,
   timeout: null,
-  whitelist: ['wallet', 'contact', 'intl']
+  whitelist: ['wallet', 'contact', 'intl', 'endPoint']
 }
 
 export default function configure(initialState, history) {

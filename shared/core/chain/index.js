@@ -25,6 +25,14 @@ export const polkaApi = async (baseUrl) => {
   return api
 }
 
+export const disconnectApi = async (baseUrl) => {
+  if (createdApi[baseUrl]) {
+    createdApi[baseUrl].disconnect()
+  }
+
+  return null
+}
+
 export const getChainStatus = async (url) => {
   const wsProvider = new WsProvider(url, { autoConnect: false })
   const api = await ApiPromise.create({

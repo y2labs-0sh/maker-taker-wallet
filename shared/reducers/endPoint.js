@@ -3,8 +3,10 @@ import * as actions from 'actions/endPoint'
 import { CHAIN_API } from 'constants/env'
 
 export const initialState = {
-  allIds: [CHAIN_API],
-  byId: {
+  allIds: [],
+  byId: {},
+  buildInAllIds: [CHAIN_API],
+  buildInById: {
     [CHAIN_API]: {
       name: 'Definex',
       url: CHAIN_API
@@ -36,9 +38,17 @@ export default handleActions({
   [actions.updateEndPointStatus] (state, action) {
     action.payload.forEach((node) => {
       const { url } = node
-      if (state.allIds.indexOf(url) === -1) state.allIds.push(url)
-      state.byId[url] = state.byId[url] || {}
-      state.byId[url] = { ...state.byId[url], ...node }
+      if (state.buildInAllIds.indexOf(url) !== -1) {
+        state.buildInById[url] = state.buildInById[url] || {}
+        state.buildInById[url] = { ...state.buildInById[url], ...node }
+      } else {
+        if (state.allIds.indexOf(url) === -1) {
+          state.allIds.push(url)
+        }
+
+        state.byId[url] = state.byId[url] || {}
+        state.byId[url] = { ...state.byId[url], ...node }
+      }
     })
   }
 }, initialState)

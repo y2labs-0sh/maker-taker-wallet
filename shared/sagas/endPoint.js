@@ -1,7 +1,7 @@
 import { takeEvery, select, all, call, put } from 'redux-saga/effects'
 import { endPointAllIdsSelector } from 'selectors/endPoint'
 import * as actions from 'actions/endPoint'
-import { getChainStatus } from 'core/chain'
+import { getChainStatus, disconnectApi } from 'core/chain'
 
 function* getEndPointStatus() {
   try {
@@ -14,6 +14,12 @@ function* getEndPointStatus() {
   }
 }
 
+function* deleteEndPoint(action) {
+  const url = action.payload
+  yield call(disconnectApi, url)
+}
+
 export default function* endPointSaga() {
   yield takeEvery(actions.getEndPointStatus.requested, getEndPointStatus)
+  yield takeEvery(actions.deleteEndPoint, deleteEndPoint)
 }
