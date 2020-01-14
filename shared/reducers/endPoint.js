@@ -1,16 +1,16 @@
 import { handleActions } from 'redux-helper'
 import * as actions from 'actions/endPoint'
-import { RIO_CHAIN_API } from 'constants/env'
+import { CHAIN_API } from 'constants/env'
 
 export const initialState = {
-  allIds: [RIO_CHAIN_API],
+  allIds: [CHAIN_API],
   byId: {
-    RIO_CHAIN_API: {
+    CHAIN_API: {
       name: 'Definex',
-      url: RIO_CHAIN_API
+      url: CHAIN_API
     }
   },
-  active: RIO_CHAIN_API
+  active: CHAIN_API
 }
 
 export default handleActions({

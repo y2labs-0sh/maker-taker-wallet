@@ -7,7 +7,7 @@ import * as endPointActions from 'actions/endPoint'
 import { endPointsSelector, activeEndPointSelector, activeEndPointUrlSelector } from 'selectors/endPoint'
 import AddNodeForm from 'components/Form/AddNodeForm'
 import { Select, Card, Table, Modal, Button, Icon } from 'antd'
-import { RIO_CHAIN_API } from 'constants/env'
+import { CHAIN_API } from 'constants/env'
 import style from './style.css'
 
 const { Option } = Select
@@ -60,7 +60,7 @@ export default class Setting extends Component {
     const { activeEndPointUrl } = this.props
 
     if (activeEndPointUrl === url) {
-      this.props.actions.setActiveEndPoint(RIO_CHAIN_API)
+      this.props.actions.setActiveEndPoint(CHAIN_API)
     }
 
     this.props.actions.deleteEndPoint(url)
@@ -94,7 +94,7 @@ export default class Setting extends Component {
       key: 'action',
       render: (props) => {
         const { node_address } = props
-        if (node_address === RIO_CHAIN_API) return null
+        if (node_address === CHAIN_API) return null
 
         return (
           <Button onClick={this.deleteEndPoint.bind(this, node_address)}>delete</Button>

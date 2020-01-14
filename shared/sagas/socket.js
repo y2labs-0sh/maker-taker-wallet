@@ -4,11 +4,11 @@ import * as actions from 'actions/socket'
 import { isPolkaNodeConnectedSelector } from 'selectors/socket'
 import { activeEndPointUrlSelector } from 'selectors/endPoint'
 import { polkaApi } from 'core/chain'
-import { RIO_CHAIN_API } from 'constants/env'
+import { CHAIN_API } from 'constants/env'
 
 function* connect(action) {
   const activeEndPoint = yield select(activeEndPointUrlSelector)
-  const baseUrl = action.payload || activeEndPoint || RIO_CHAIN_API
+  const baseUrl = action.payload || activeEndPoint || CHAIN_API
 
   try {
     yield call(polkaApi, baseUrl)

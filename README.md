@@ -51,7 +51,7 @@ staging example:
 ```json
 {
   "ENV": "staging",
-  "RIO_CHAIN_API": "wss://node.staging.definex.com",
+  "CHAIN_API": "wss://node.staging.definex.com",
   "ADMIN_API": "https://admin-api.staging.definex.com",
   "SCAN_API": "https://scan.staging.definex.com"
 }

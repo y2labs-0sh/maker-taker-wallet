@@ -1,10 +1,10 @@
 import { ApiPromise, WsProvider } from '@polkadot/api'
 import Decimal from 'decimal.js'
-import { RIO_CHAIN_API } from 'constants/env'
+import { CHAIN_API } from 'constants/env'
 import chainTypes from './chainTypes'
 
 // 'wss://node.staging.definex.com/' '192.168.1.36:9944'
-const defaultUrl = RIO_CHAIN_API
+const defaultUrl = CHAIN_API
 
 const createdApi = {}
 
