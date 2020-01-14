@@ -13,7 +13,7 @@ import { getWalletUniqueInfo, getChannelId } from 'utils'
 function* getLoanAccountId() {
   try {
     const api = yield call(fetchPolkaApi)
-    const accountId = yield call(api.query.rioLoan.pawnShop)
+    const accountId = yield call(api.query.loan.pawnShop)
     yield put(actions.updateLoanAccountId(String(accountId)))
     yield put(actions.getLoanAccountId.succeeded())
   } catch (error) {
@@ -24,7 +24,7 @@ function* getLoanAccountId() {
 function* getCollateralAssetId() {
   try {
     const api = yield call(fetchPolkaApi)
-    const assetId = yield call(api.query.rioLoan.collateralAssetId)
+    const assetId = yield call(api.query.loan.collateralAssetId)
     yield put(actions.updateCollateralAssetId(Number(assetId)))
     yield put(actions.getCollateralAssetId.succeeded())
   } catch (error) {
@@ -35,7 +35,7 @@ function* getCollateralAssetId() {
 function* getLoanAssetId() {
   try {
     const api = yield call(fetchPolkaApi)
-    const assetId = yield call(api.query.rioLoan.loanAssetId)
+    const assetId = yield call(api.query.loan.loanAssetId)
     yield put(actions.updateLoanAssetId(Number(assetId)))
     yield put(actions.getLoanAssetId.succeeded())
   } catch (error) {
@@ -46,7 +46,7 @@ function* getLoanAssetId() {
 function* getLiquidationThresholdLimit() {
   try {
     const api = yield call(fetchPolkaApi)
-    const result = yield call(api.query.rioLoan.globalLTVLimit)
+    const result = yield call(api.query.loan.globalLTVLimit)
     yield put(actions.updateLiquidationThresholdLimit(Number(result) / 10000))
     yield put(actions.getLiquidationThresholdLimit.succeeded())
   } catch (error) {
@@ -57,7 +57,7 @@ function* getLiquidationThresholdLimit() {
 function* getGlobalLiquidationThreshold() {
   try {
     const api = yield call(fetchPolkaApi)
-    const result = yield call(api.query.rioLoan.globalLiquidationThreshold)
+    const result = yield call(api.query.loan.globalLiquidationThreshold)
     yield put(actions.updateGlobalLiquidationThreshold(Number(result) / 10000))
     yield put(actions.getGlobalLiquidationThreshold.succeeded())
   } catch (error) {
@@ -68,7 +68,7 @@ function* getGlobalLiquidationThreshold() {
 function* getNextLoanPackageId() {
   try {
     const api = yield call(fetchPolkaApi)
-    const result = yield call(api.query.rioLoan.nextLoanPackageId)
+    const result = yield call(api.query.loan.nextLoanPackageId)
     yield put(actions.updateNextLoanPackageId(Number(result)))
     yield put(actions.getNextLoanPackageId.succeeded())
   } catch (error) {
@@ -79,7 +79,7 @@ function* getNextLoanPackageId() {
 function* getActiveLoanPackage() {
   try {
     const api = yield call(fetchPolkaApi)
-    const result = yield call(api.query.rioLoan.activeLoanPackages)
+    const result = yield call(api.query.loan.activeLoanPackages)
     const packages = result[1].map(item => ({
       id: String(item.id),
       status: String(item.status),
@@ -102,7 +102,7 @@ function* createLoansChannel(walletInfo) {
   return eventChannel((emit) => {
     let unsubscribeAction
 
-    api.query.rioLoan.loansByAccount(walletInfo.address, (result) => {
+    api.query.loan.loansByAccount(walletInfo.address, (result) => {
       emit(actions.receiveLoanIds({ walletInfo, ids: JSON.parse(String(result)) }))
     }).then((cancel) => {
       unsubscribeAction = cancel
@@ -120,7 +120,7 @@ function* receiveLoanIds(action) {
   try {
     const { ids, walletInfo } = action.payload
     const api = yield call(fetchPolkaApi)
-    const loanList = (yield all(ids.map(id => call(api.query.rioLoan.loans, id)))).map(res => ({
+    const loanList = (yield all(ids.map(id => call(api.query.loan.loans, id)))).map(res => ({
       id: String(res[0].id),
       package_id: String(res[0].package_id),
       status: String(res[0].status),
@@ -174,7 +174,7 @@ function* getLoans() {
   try {
     const api = yield call(fetchPolkaApi)
     const activeWallet = yield select(activeWalletSelector)
-    const result = yield call(api.query.rioLoan.loansByAccount, activeWallet.address)
+    const result = yield call(api.query.loan.loansByAccount, activeWallet.address)
     const walletInfo = getWalletUniqueInfo(activeWallet)
     yield put(actions.receiveLoanIds({ walletInfo, ids: JSON.parse(String(result)) }))
     yield put(actions.getLoans.succeeded())
@@ -186,7 +186,7 @@ function* getLoans() {
 function* getCurrentBTCPrice() {
   try {
     const api = yield call(fetchPolkaApi)
-    const result = yield call(api.query.rioLoan.currentBTCPrice)
+    const result = yield call(api.query.loan.currentBTCPrice)
     yield put(actions.updateCurrentBTCPrice(Number(result) / 10000))
     yield put(actions.getCurrentBTCPrice.succeeded())
   } catch (error) {
@@ -200,7 +200,7 @@ function* createBTCPriceChannel() {
   return eventChannel((emit) => {
     let unsubscribeAction
 
-    api.query.rioLoan.currentBTCPrice((result) => {
+    api.query.loan.currentBTCPrice((result) => {
       emit(actions.updateCurrentBTCPrice(Number(result) / 10000))
     }).then((cancel) => {
       unsubscribeAction = cancel
@@ -236,7 +236,7 @@ function* subscribeBTCPrice() {
 function* getGlobalWarningThreshold() {
   try {
     const api = yield call(fetchPolkaApi)
-    const result = yield call(api.query.rioLoan.globalWarningThreshold)
+    const result = yield call(api.query.loan.globalWarningThreshold)
     yield put(actions.updateGlobalWarningThreshold(Number(result) / 10000))
     yield put(actions.getGlobalWarningThreshold.succeeded())
   } catch (error) {
@@ -247,7 +247,7 @@ function* getGlobalWarningThreshold() {
 // function* getLiquidatingLoans() {
 //   try {
 //     const api = yield call(fetchPolkaApi)
-//     const result = yield call(api.query.rioLoan.liquidatingLoans)
+//     const result = yield call(api.query.loan.liquidatingLoans)
 //     yield put(actions.updateLiquidationLoans(JSON.parse(String(result))[1]))
 //     yield put(actions.getLiquidatingLoans.succeeded())
 //   } catch (error) {

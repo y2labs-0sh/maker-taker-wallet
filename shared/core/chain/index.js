@@ -64,7 +64,7 @@ export const transfer = async (sender, amount, receiver, assetId) => {
 
   if (assetId) {
     return new Promise((resolve, reject) => {
-      api.tx.rioAssets.transfer(assetId, receiver, String((new Decimal(amount)).times(100000000))).signAndSend(sender).then((res) => {
+      api.tx.assets.transfer(assetId, receiver, String((new Decimal(amount)).times(100000000))).signAndSend(sender).then((res) => {
         resolve(res)
       }).catch((error) => {
         reject(error)
@@ -80,7 +80,7 @@ export const save = async (sender, amount, sbtcAssetId) => {
   const api = await getPolkaApiForSender(sender)
 
   return new Promise((resolve, reject) => {
-    api.tx.rioSaving.staking(sbtcAssetId, String((new Decimal(amount)).times(100000000))).signAndSend(sender).then((res) => {
+    api.tx.saving.staking(sbtcAssetId, String((new Decimal(amount)).times(100000000))).signAndSend(sender).then((res) => {
       resolve(res)
     }).catch((error) => {
       reject(error)
@@ -92,7 +92,7 @@ export const redeem = async (sender, amount, rscAssetId) => {
   const api = await getPolkaApiForSender(sender)
 
   return new Promise((resolve, reject) => {
-    api.tx.rioSaving.redeem(rscAssetId, String((new Decimal(amount)).times(100000000))).signAndSend(sender).then((res) => {
+    api.tx.saving.redeem(rscAssetId, String((new Decimal(amount)).times(100000000))).signAndSend(sender).then((res) => {
       resolve(res)
     }).catch((error) => {
       reject(error)
@@ -116,7 +116,7 @@ export const repay = async (sender, loanId) => {
   const api = await getPolkaApiForSender(sender)
 
   return new Promise((resolve, reject) => {
-    api.tx.rioLoan.repay(loanId).signAndSend(sender).then((res) => {
+    api.tx.loan.repay(loanId).signAndSend(sender).then((res) => {
       resolve(res)
     }).catch((error) => {
       reject(error)
@@ -128,7 +128,7 @@ export const addCollateral = async (sender, loanId, amount) => {
   const api = await getPolkaApiForSender(sender)
 
   return new Promise((resolve, reject) => {
-    api.tx.rioLoan.addCollateral(loanId, String((new Decimal(amount)).times(100000000))).signAndSend(sender).then((res) => {
+    api.tx.loan.addCollateral(loanId, String((new Decimal(amount)).times(100000000))).signAndSend(sender).then((res) => {
       resolve(res)
     }).catch((error) => {
       reject(error)
@@ -140,7 +140,7 @@ export const draw = async (sender, loanId, amount) => {
   const api = await getPolkaApiForSender(sender)
 
   return new Promise((resolve, reject) => {
-    api.tx.rioLoan.draw(loanId, String((new Decimal(amount)).times(100000000))).signAndSend(sender).then((res) => {
+    api.tx.loan.draw(loanId, String((new Decimal(amount)).times(100000000))).signAndSend(sender).then((res) => {
       resolve(res)
     }).catch((error) => {
       reject(error)

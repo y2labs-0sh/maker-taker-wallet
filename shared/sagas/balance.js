@@ -30,14 +30,14 @@ function* createBalanceChannel(assetInfo) {
     let unsubscribeLockBalanceAction
 
     if (!isNaN(assetInfo.contract)) {
-      api.query.rioAssetsQuery.freeBalance(assetInfo.contract, assetInfo.address, (balance) => {
+      api.query.assetsQuery.freeBalance(assetInfo.contract, assetInfo.address, (balance) => {
         emit(actions.updateBalance({ ...assetInfo, freeBalance: Number(balance) / 100000000 }))
       }).then((cancel) => {
         unsubscribeFreeBalanceAction = cancel
       })
 
       if (assetInfo.symbol === 'RBTC') {
-        api.query.rioSaving.shareUnreleasedList(assetInfo.address, (result) => {
+        api.query.saving.shareUnreleasedList(assetInfo.address, (result) => {
           const lockBalance = handleRBTCLockBalanceResponse(result)
           emit(actions.updateBalance({ ...assetInfo, lockBalance }))
         }).then((cancel) => {
@@ -107,7 +107,7 @@ function* getRBTCLockBalance() {
     assert(rbtcAssetId, 'no rbtc asset')
     const assetInfo = getAssetUniqueInfo(activeWallet, { symbol: 'RBTC', assetId: rbtcAssetId })
     const { address } = activeWallet
-    const result = yield call(api.query.rioSaving.shareUnreleasedList, address)
+    const result = yield call(api.query.saving.shareUnreleasedList, address)
     const lockBalance = handleRBTCLockBalanceResponse(result)
     yield put(actions.updateBalance({ ...assetInfo, lockBalance }))
     yield put(actions.getRBTCLockBalance.succeeded())

@@ -5,7 +5,7 @@ import { CHAIN_API } from 'constants/env'
 export const initialState = {
   allIds: [CHAIN_API],
   byId: {
-    CHAIN_API: {
+    [CHAIN_API]: {
       name: 'Definex',
       url: CHAIN_API
     }

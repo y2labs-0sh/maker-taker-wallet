@@ -10,7 +10,7 @@ import * as chain from 'core/chain'
 function* getSBTCAssetId(action) {
   try {
     const api = yield call(fetchPolkaApi, action)
-    const assetId = yield call(api.query.rioSaving.collectionAssetId)
+    const assetId = yield call(api.query.saving.collectionAssetId)
     yield put(actions.updateSBTCAssetId(Number(assetId)))
     yield put(actions.getSBTCAssetId.succeeded())
     yield put(subscribeBalance({ assetId: Number(assetId), symbol: 'BTC' }))
@@ -22,7 +22,7 @@ function* getSBTCAssetId(action) {
 function* getRBTCAssetId(action) {
   try {
     const api = yield call(fetchPolkaApi, action)
-    const assetId = yield call(api.query.rioSaving.shareAssetId)
+    const assetId = yield call(api.query.saving.shareAssetId)
     yield put(actions.updateRBTCAssetId(Number(assetId)))
     yield put(actions.getRBTCAssetId.succeeded())
     yield put(subscribeBalance({ assetId: Number(assetId), symbol: 'RBTC' }))
@@ -34,7 +34,7 @@ function* getRBTCAssetId(action) {
 function* getSavingAccountId(action) {
   try {
     const api = yield call(fetchPolkaApi, action)
-    const accountId = yield call(api.query.rioSaving.collectionAccountId)
+    const accountId = yield call(api.query.saving.collectionAccountId)
     yield put(actions.updateSavingAccountId(String(accountId)))
     yield put(actions.getSavingAccountId.succeeded())
   } catch (error) {
@@ -45,7 +45,7 @@ function* getSavingAccountId(action) {
 function* getCurrentPhaseId(action) {
   try {
     const api = yield call(fetchPolkaApi, action)
-    const phaseId = yield call(api.query.rioSaving.currentPhaseId)
+    const phaseId = yield call(api.query.saving.currentPhaseId)
     yield put(actions.updateCurrentPhaseId(Number(phaseId)))
     yield put(actions.getCurrentPhaseId.succeeded())
     yield put(actions.getCurrentPhaseInfo.requested(Number(phaseId)))
@@ -57,7 +57,7 @@ function* getCurrentPhaseId(action) {
 function* getCurrentPhaseInfo(action) {
   try {
     const api = yield call(fetchPolkaApi, action)
-    const result = yield call(api.query.rioSaving.phaseInfos, action.payload)
+    const result = yield call(api.query.saving.phaseInfos, action.payload)
 
     const phaseInfo = {
       id: Number(result[0].id),
@@ -76,7 +76,7 @@ function* getCurrentPhaseInfo(action) {
 function* getUsedQuota(action) {
   try {
     const api = yield call(fetchPolkaApi, action)
-    const result = yield call(api.query.rioAssets.usedQuota)
+    const result = yield call(api.query.assets.usedQuota)
     console.log(result)
     // yield put(actions.updateUsedQuota(result))
     yield put(actions.getUsedQuota.succeeded())
@@ -121,7 +121,7 @@ function* unstakeBTC(action) {
 function* getPhaseList(action) {
   try {
     const api = yield call(fetchPolkaApi, action)
-    const result = yield call(api.query.rioSaving.phaseInfos)
+    const result = yield call(api.query.saving.phaseInfos)
     const phaseList = result[1].map(item => ({
       id: Number(item.id),
       quota: Number(item.quota),

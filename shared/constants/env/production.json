@@ -1,6 +1,6 @@
 {
   "ENV": "production",
   "CHAIN_API": "wss://node2.definex.io",
-  "ADMIN_API": "https://admin-api.staging.definex.com",
-  "SCAN_API": "https://scan.staging.definex.com"
+  "ADMIN_API": "https://admin-api-2.definex.io",
+  "SCAN_API": "https://scan2.definex.io"
 }
