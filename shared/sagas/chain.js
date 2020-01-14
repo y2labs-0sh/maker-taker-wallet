@@ -3,6 +3,8 @@ import { takeEvery, call, put, race, take, select } from 'redux-saga/effects'
 import { listenChannel } from 'sagas/channel'
 import { fetchPolkaApi } from 'sagas/socket'
 import { channelSelector } from 'selectors/channel'
+import { activeEndPointUrlSelector } from 'selectors/endPoint'
+import { updateEndPointStatus } from 'actions/endPoint'
 import * as channelActions from 'actions/channel'
 import * as actions from 'actions/chain'
 
@@ -10,15 +12,19 @@ let lastBlockTime = null
 
 function* createChainStateChannel() {
   const api = yield call(fetchPolkaApi)
+  const activeEndPoint = yield select(activeEndPointUrlSelector)
 
   return eventChannel((emit) => {
     let unsubscribeAction
 
     api.rpc.chain.subscribeNewHeads((result) => {
       emit(actions.updateChainState({ blockHeight: Number(result.number) }))
+      emit(updateEndPointStatus([{ url: activeEndPoint, blockNumber: Number(result.number) }]))
+
       const currentBlockTime = +Date.now()
       if (lastBlockTime) {
         emit(actions.updateChainState({ blockTime: currentBlockTime - lastBlockTime }))
+        emit(updateEndPointStatus([{ url: activeEndPoint, delayTime: currentBlockTime - lastBlockTime }]))
       }
       lastBlockTime = currentBlockTime
     }).then((cancel) => {
