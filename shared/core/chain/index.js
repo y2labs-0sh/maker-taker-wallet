@@ -112,7 +112,7 @@ export const loan = async (sender, btcAmount, rioAmount, packageId) => {
   const api = await getPolkaApiForSender(sender)
 
   return new Promise((resolve, reject) => {
-    api.tx.rioLoan.apply(String((new Decimal(btcAmount)).times(100000000)), String((new Decimal(rioAmount)).times(100000000)), packageId).signAndSend(sender).then((res) => {
+    api.tx.loan.apply(String((new Decimal(btcAmount)).times(100000000)), String((new Decimal(rioAmount)).times(100000000)), packageId).signAndSend(sender).then((res) => {
       resolve(res)
     }).catch((error) => {
       reject(error)
