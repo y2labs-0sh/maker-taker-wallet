@@ -431,7 +431,7 @@ export default class Transaction extends Component {
               }))}
             />
           </TabPane>
-          <TabPane tab={intl.formatMessage({ id: 'My Stake' })} key="4">
+          <TabPane tab={intl.formatMessage({ id: 'My Saving' })} key="4">
             <Table
               columns={savingColumns}
               dataSource={savingTransaction.map(item => ({
