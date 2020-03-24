@@ -9,6 +9,7 @@ export const substrateNetwork = {
   polkadot: 'polkadot',
   kusama: 'kusama',
   edgeware: 'edgeware',
+  definex: 'definex',
   rio: 'rio'
 }
 

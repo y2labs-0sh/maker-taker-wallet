@@ -114,7 +114,7 @@ function* importWalletBySuri(action) {
       password,
       {
         name,
-        network: 'rio',
+        network: 'definex',
         keyPairType: 'sr25519',
         passwordHint
       }
@@ -144,7 +144,7 @@ function* importWalletByKeystore(action) {
       password,
       {
         name,
-        network: 'rio',
+        network: 'definex',
         keyPairType: 'sr25519',
         passwordHint
       }

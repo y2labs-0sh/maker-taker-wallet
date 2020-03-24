@@ -14,7 +14,7 @@ import {
 export const scanExtensionWallets = async () => {
   const { web3Accounts, web3Enable } = await import('@polkadot/extension-dapp'/* webpackChunkName: 'extension-dapp' */)
 
-  await web3Enable('rio')
+  await web3Enable('definex')
   const allAccounts = await web3Accounts()
   const polkadotExtensionWallets = allAccounts
     .filter(wallet => wallet.meta.source === 'polkadot-js')
@@ -24,7 +24,7 @@ export const scanExtensionWallets = async () => {
       name: wallet.meta.name,
       chain: 'polkadot',
       source: 'extension',
-      network: 'rio',
+      network: 'definex',
       timestamp: +Date.now()
     }))
 

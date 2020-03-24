@@ -1,12 +1,12 @@
 import Root from 'pages/Root'
 import NoMatch from 'components/NoMatch'
 import {
-  Asset,
-  Transaction,
-  Staking,
+  // Asset,
+  // Transaction,
+  // Staking,
   // Loan,
   Setting,
-  Contact,
+  // Contact,
   Market
 } from 'routes/sync'
 
@@ -17,18 +17,18 @@ const routes = [
       {
         path: '/',
         exact: true,
-        component: Setting
+        component: Market
       },
-      {
-        path: '/asset',
-        exact: true,
-        component: Asset
-      },
-      {
-        path: '/transaction',
-        exact: true,
-        component: Transaction
-      },
+      // {
+      //   path: '/asset',
+      //   exact: true,
+      //   component: Asset
+      // },
+      // {
+      //   path: '/transaction',
+      //   exact: true,
+      //   component: Transaction
+      // },
       // {
       //   path: '/loan',
       //   exact: true,
@@ -39,16 +39,16 @@ const routes = [
         exact: true,
         component: Setting
       },
-      {
-        path: '/saving',
-        exact: true,
-        component: Staking
-      },
-      {
-        path: '/contact',
-        exact: true,
-        component: Contact
-      },
+      // {
+      //   path: '/saving',
+      //   exact: true,
+      //   component: Staking
+      // },
+      // {
+      //   path: '/contact',
+      //   exact: true,
+      //   component: Contact
+      // },
       {
         path: '/market',
         exact: true,
