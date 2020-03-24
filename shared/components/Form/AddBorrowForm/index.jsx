@@ -75,7 +75,7 @@ export default class AddBorrowForm extends Component {
   }
 
   render() {
-    const { balance, intl, item } = this.props
+    const { balance, intl, item, symbolsMapping } = this.props
     console.log(balance)
     // const symbol = balance ? balance.symbol : '--'
 
@@ -85,7 +85,7 @@ export default class AddBorrowForm extends Component {
           {...formItemLayout}
           label={intl.formatMessage({ id: 'balance' })}
         >
-          <span className="ant-form-text">{item.collateralBalance}</span>
+          <span className="ant-form-text">{item.collateralBalance} {symbolsMapping[item.collateral_asset_id]}</span>
         </Form.Item>
         <Form.Item
           {...formItemLayout}

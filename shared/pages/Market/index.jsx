@@ -44,6 +44,7 @@ export default class Market extends Component {
     showCancelModal: false,
     loadingTable: true,
     currentItem: '',
+    symbolsMapping: {},
     statusMapping: [
       'Well',
       'ToBeLiquidated',
@@ -56,31 +57,49 @@ export default class Market extends Component {
     bidsArray: []
   }
 
+  hexCharCodeToStr(hexCharCodeStr) {
+    const trimedStr = hexCharCodeStr.trim();
+    const rawStr = trimedStr.substr(0, 2).toLowerCase() === '0x' ? trimedStr.substr(2) : trimedStr;
+    const len = rawStr.length;
+    if (len % 2 !== 0) {
+      console.log('存在非法字符!');
+      return '';
+    }
+    let curCharCode;
+    const resultStr = [];
+    for (let i = 0; i < len; i += 2) {
+      curCharCode = parseInt(rawStr.substr(i, 2), 16);
+      resultStr.push(String.fromCharCode(curCharCode));
+    }
+    return resultStr.join('');
+  }
+
   componentDidMount() {
     const wsProvider = new WsProvider('wss://node2.definex.io')
     ApiPromise.create({ provider: wsProvider, types: chainTypes }).then(async (api) => {
       console.log('api is', api)
+      //query symbols
+      const symbolsArray = JSON.parse((await api.query.genericAsset.symbols()).toString())
+      const symbolsMapping = {}
+      for (let i = 0; i < symbolsArray.length; i++) {
+        symbolsMapping[symbolsArray[0][i]] = this.hexCharCodeToStr(symbolsArray[1][i])
+      }
       this.setState({
-        api: api
-      }, async () => {
-        const bidsArray = await this.state.api.query.lsBiding.borrows()
+        symbolsMapping: symbolsMapping
+      }, () => {
+        console.log(this.state.symbolsMapping, 234234)
         this.setState({
-          loadingTable: false,
-          bidsArray: JSON.parse(bidsArray[1].toString())
+          api: api
+        }, async () => {
+          const bidsArray = await this.state.api.query.lsBiding.borrows()
+          this.setState({
+            loadingTable: false,
+            bidsArray: JSON.parse(bidsArray[1].toString())
+          })
         })
       })
     })
   }
-
-  // async getPolkaApiForSender (sender) {
-  //   const { api } = this.state
-  //   if (typeof sender === 'string') {
-  //     const { web3FromAddress } = await import('@polkadot/extension-dapp'/* webpackChunkName: 'extension-dapp' */)
-  //     const injector = await web3FromAddress(sender)
-  //     api.setSigner(injector.signer)
-  //   }
-  //   return api
-  // }
 
   toggleMakeModal = () => {
     this.setState({ showMakeModal: !this.state.showMakeModal })
@@ -204,7 +223,7 @@ export default class Market extends Component {
 
   render() {
     const { intl, wallet } = this.props
-    const { bidsArray, loadingTable } = this.state
+    const { bidsArray, loadingTable, symbolsMapping } = this.state
 
     const columns = [{
       title: intl.formatMessage({ id: 'Id' }),
@@ -229,11 +248,17 @@ export default class Market extends Component {
       title: intl.formatMessage({ id: 'borrowAssetId' }),
       dataIndex: 'borrow_asset_id',
       key: 'borrow_asset_id',
+      render: (props, record) => (
+        <span>{this.state.symbolsMapping[record.borrow_asset_id]}</span>
+      )
     },
     {
       title: intl.formatMessage({ id: 'collateralAssetId' }),
       dataIndex: 'collateral_asset_id',
       key: 'collateral_asset_id',
+      render: (props, record) => (
+        <span>{this.state.symbolsMapping[record.collateral_asset_id]}</span>
+      )
     },
     {
       title: intl.formatMessage({ id: 'borrowBalance' }),
@@ -309,7 +334,7 @@ export default class Market extends Component {
             onCancel={this.toggleMakeModal}
             footer={null}
           >
-            <MakeBorrowForm api={this.state.api} address={wallet.address} />
+            <MakeBorrowForm api={this.state.api} symbolsMapping={symbolsMapping} address={wallet.address} />
           </Modal>
         )}
         {this.state.showAddModal && (
@@ -320,7 +345,7 @@ export default class Market extends Component {
             onCancel={this.toggleAddModal}
             footer={null}
           >
-            <AddBorrowForm item={this.state.currentItem} />
+            <AddBorrowForm item={this.state.currentItem} symbolsMapping={symbolsMapping} />
           </Modal>
         )}
         {this.state.showLendModal && (
@@ -331,7 +356,7 @@ export default class Market extends Component {
             onCancel={this.toggleLendModal}
             footer={null}
           >
-            <LendBorrowForm item={this.state.currentItem} />
+            <LendBorrowForm item={this.state.currentItem} symbolsMapping={symbolsMapping} />
           </Modal>
         )}
         {this.state.showRepayModal && (
@@ -342,7 +367,7 @@ export default class Market extends Component {
             onCancel={this.toggleRepayModal}
             footer={null}
           >
-            <RepayBorrowForm item={this.state.currentItem} />
+            <RepayBorrowForm item={this.state.currentItem} symbolsMapping={symbolsMapping} />
           </Modal>
         )}
         {this.state.showCancelModal && (

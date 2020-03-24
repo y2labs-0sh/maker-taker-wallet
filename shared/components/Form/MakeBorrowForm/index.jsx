@@ -70,10 +70,7 @@ export default class MakeBorrowForm extends Component {
   }
 
   async initTradingPair() {
-    console.log('propppps', this.props)
     const api = this.props.api
-    const symbols = await api.query.genericAsset.symbols()
-    console.log('symbols', JSON.parse(symbols.toString()))
     const tradingPair = await api.query.lsBiding.tradingPairs()
     this.setState({
       //get first trading pair array
@@ -108,7 +105,7 @@ export default class MakeBorrowForm extends Component {
   }
 
   render() {
-    const { balance, intl } = this.props
+    const { balance, intl, symbolsMapping } = this.props
     console.log(balance)
     // const symbol = balance ? balance.symbol : '--'
     return (
@@ -117,20 +114,20 @@ export default class MakeBorrowForm extends Component {
           {...formItemLayout}
           label={intl.formatMessage({ id: 'balance' })}
         >
-          <span className="ant-form-text">{this.state.collateralBalance}</span>
+          <span className="ant-form-text">{this.state.collateralBalance} {symbolsMapping[this.state.trading_pair.collateral]}</span>
         </Form.Item>
         <a-divider />
         <Form.Item
           {...formItemLayout}
           label={intl.formatMessage({ id: 'collateral' })}
         >
-          <span className="ant-form-text">{this.state.trading_pair.collateral}</span>
+          <span className="ant-form-text">{symbolsMapping[this.state.trading_pair.collateral]}</span>
         </Form.Item>
         <Form.Item
           {...formItemLayout}
           label={intl.formatMessage({ id: 'borrow' })}
         >
-          <span className="ant-form-text">{this.state.trading_pair.borrow}</span>
+          <span className="ant-form-text">{symbolsMapping[this.state.trading_pair.borrow]}</span>
         </Form.Item>
         <a-divider />
         <Form.Item
