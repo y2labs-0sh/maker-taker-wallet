@@ -44,6 +44,13 @@ export default class Market extends Component {
     showCancelModal: false,
     loadingTable: true,
     currentItem: '',
+    statusMapping: [
+      'Well',
+      'ToBeLiquidated',
+      'Liquidated',
+      'Dead',
+      'Completed'
+    ],
     api: {},
     // symbolMapping:{},
     bidsArray: []
@@ -196,7 +203,7 @@ export default class Market extends Component {
   // }
 
   render() {
-    const { intl } = this.props
+    const { intl, wallet } = this.props
     const { bidsArray, loadingTable } = this.state
 
     const columns = [{
@@ -215,6 +222,9 @@ export default class Market extends Component {
       title: intl.formatMessage({ id: 'status' }),
       dataIndex: 'status',
       key: 'status',
+      render: (props, record) => (
+        <span>{this.state.statusMapping[record.status]}</span>
+      )
     }, {
       title: intl.formatMessage({ id: 'borrowAssetId' }),
       dataIndex: 'borrow_asset_id',
@@ -261,9 +271,11 @@ export default class Market extends Component {
       render: (props, record) => {
         return (
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <div style={{ paddingRight: '10px' }}>
-              <Button onClick={this.showAddModal.bind(this, record)}>{intl.formatMessage({ id: 'add' })}</Button>
-            </div>
+            {wallet.address === record.who && (
+              <div style={{ paddingRight: '10px' }}>
+                <Button onClick={this.showAddModal.bind(this, record)}>{intl.formatMessage({ id: 'add' })}</Button>
+              </div>
+            )}
             <div style={{ paddingRight: '10px' }}>
               <Button onClick={this.showLendModal.bind(this, record)}>{intl.formatMessage({ id: 'lend' })}</Button>
             </div>
@@ -297,7 +309,7 @@ export default class Market extends Component {
             onCancel={this.toggleMakeModal}
             footer={null}
           >
-            <MakeBorrowForm />
+            <MakeBorrowForm api={this.state.api} address={wallet.address} />
           </Modal>
         )}
         {this.state.showAddModal && (

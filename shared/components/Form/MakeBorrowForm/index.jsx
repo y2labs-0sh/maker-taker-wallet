@@ -44,15 +44,12 @@ const formItemLayout = {
 export default class MakeBorrowForm extends Component {
   submit = async () => {
     this.props.actions.makeBorrow.requested({
+      trading_pair: this.state.trading_pair,
       collateral_balance: this.state.collateral_balance,
-      trading_pair: {
-        collateral: this.state.collateral,
-        borrow: this.state.borrow,
-      },
       borrow_options: {
         amount: this.state.amount,
         terms: this.state.terms,
-        interest_rate: this.state.interest_rate,
+        interest_rate: this.state.interest_rate * (10 ** 8),
       },
       onSuccess: this.onSuccess,
       onError: this.onError
@@ -60,12 +57,34 @@ export default class MakeBorrowForm extends Component {
   }
 
   state = {
+    trading_pair: '',
+    collateralBalance: '',
     collateral_balance: '',
-    collateral: '',
-    borrow: '',
     amount: '',
     terms: '',
     interest_rate: ''
+  }
+
+  async componentDidMount() {
+    this.initTradingPair()
+  }
+
+  async initTradingPair() {
+    console.log('propppps', this.props)
+    const api = this.props.api
+    const symbols = await api.query.genericAsset.symbols()
+    console.log('symbols', JSON.parse(symbols.toString()))
+    const tradingPair = await api.query.lsBiding.tradingPairs()
+    this.setState({
+      //get first trading pair array
+      trading_pair: JSON.parse(tradingPair.toString())[0]
+    }, async () => {
+      //fetch collateral balance
+      const collateralBalance = await api.query.genericAsset.freeBalance(this.state.trading_pair.collateral, this.props.address)
+      this.setState({
+        collateralBalance: collateralBalance.toString()
+      })
+    })
   }
 
   inputChange(event) {
@@ -90,37 +109,36 @@ export default class MakeBorrowForm extends Component {
 
   render() {
     const { balance, intl } = this.props
-
-    const symbol = balance ? balance.symbol : '--'
-
+    console.log(balance)
+    // const symbol = balance ? balance.symbol : '--'
     return (
       <form>
         <Form.Item
           {...formItemLayout}
           label={intl.formatMessage({ id: 'balance' })}
         >
-          <span className="ant-form-text">{symbol}</span>
-        </Form.Item>
-        <Form.Item
-          {...formItemLayout}
-          label={intl.formatMessage({ id: 'collateralBalance' })}
-        >
-          <Input value={this.state.collateral_balance} name="collateral_balance" onChange={this.inputChange.bind(this)} />
+          <span className="ant-form-text">{this.state.collateralBalance}</span>
         </Form.Item>
         <a-divider />
         <Form.Item
           {...formItemLayout}
           label={intl.formatMessage({ id: 'collateral' })}
         >
-          <Input value={this.state.collateral} name="collateral" onChange={this.inputChange.bind(this)} />
+          <span className="ant-form-text">{this.state.trading_pair.collateral}</span>
         </Form.Item>
         <Form.Item
           {...formItemLayout}
           label={intl.formatMessage({ id: 'borrow' })}
         >
-          <Input value={this.state.borrow} name="borrow" onChange={this.inputChange.bind(this)} />
+          <span className="ant-form-text">{this.state.trading_pair.borrow}</span>
         </Form.Item>
         <a-divider />
+        <Form.Item
+          {...formItemLayout}
+          label={intl.formatMessage({ id: 'collateralBalance' })}
+        >
+          <Input value={this.state.collateral_balance} name="collateral_balance" onChange={this.inputChange.bind(this)} />
+        </Form.Item>
         <Form.Item
           {...formItemLayout}
           label={intl.formatMessage({ id: 'amount' })}
@@ -131,13 +149,14 @@ export default class MakeBorrowForm extends Component {
           {...formItemLayout}
           label={intl.formatMessage({ id: 'terms' })}
         >
-          <Input value={this.state.terms} name="terms" onChange={this.inputChange.bind(this)} />
+          <Input value={this.state.terms} suffix="days" name="terms" onChange={this.inputChange.bind(this)} />
         </Form.Item>
         <Form.Item
           {...formItemLayout}
           label={intl.formatMessage({ id: 'interest_rate' })}
         >
-          <Input value={this.state.interest_rate} name="interest_rate" onChange={this.inputChange.bind(this)} />
+          <Input value={this.state.interest_rate} suffix="per day" name="interest_rate" onChange={this.inputChange.bind(this)} />
+          {/* <span>{this.state.interest_rate * 365}% per year.</span> */}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" onClick={this.submit.bind(this)} >{intl.formatMessage({ id: 'make' })}</Button>
