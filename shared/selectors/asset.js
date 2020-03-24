@@ -2,7 +2,7 @@
 import { initialState } from 'reducers/asset'
 // import { activeBalanceSelector } from './balance'
 
-export const activeAssetIdSelector = state => state.asset.activeId || initialState.activeId
+export const activeAssetIdSelector = state => state.asset.activeId || initialState.activeId || 1
 
 // export const assetMapSelector = createSelector(
 //   activeBalanceSelector,

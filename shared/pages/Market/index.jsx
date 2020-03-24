@@ -45,6 +45,7 @@ export default class Market extends Component {
     loadingTable: true,
     currentItem: '',
     api: {},
+    // symbolMapping:{},
     bidsArray: []
   }
 
@@ -94,7 +95,10 @@ export default class Market extends Component {
     this.setState({ showRepayModal: !this.state.showRepayModal })
   }
 
-  showAddModal = (record) => {
+  showAddModal = async (record) => {
+    const currentWallet = this.props.wallet.address
+    const collateralBalance = await this.state.api.query.genericAsset.freeBalance(record.collateral_asset_id, currentWallet)
+    record.collateralBalance = collateralBalance.toString()
     this.setState({
       currentItem: record
     }, () => {
@@ -102,7 +106,10 @@ export default class Market extends Component {
     })
   }
 
-  showLendModal = (record) => {
+  showLendModal = async (record) => {
+    const currentWallet = this.props.wallet.address
+    const borrowBalance = await this.state.api.query.genericAsset.freeBalance(record.borrow_asset_id, currentWallet)
+    record.borrowBalance = borrowBalance.toString()
     this.setState({
       currentItem: record
     }, () => {
@@ -110,7 +117,10 @@ export default class Market extends Component {
     })
   }
 
-  showRepayModal = (record) => {
+  showRepayModal = async (record) => {
+    const currentWallet = this.props.wallet.address
+    const borrowBalance = await this.state.api.query.genericAsset.freeBalance(record.borrow_asset_id, currentWallet)
+    record.borrowBalance = borrowBalance.toString()
     this.setState({
       currentItem: record
     }, () => {

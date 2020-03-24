@@ -75,9 +75,9 @@ export default class AddBorrowForm extends Component {
   }
 
   render() {
-    const { balance, intl } = this.props
-
-    const symbol = balance ? balance.symbol : '--'
+    const { balance, intl, item } = this.props
+    console.log(balance)
+    // const symbol = balance ? balance.symbol : '--'
 
     return (
       <form>
@@ -85,7 +85,7 @@ export default class AddBorrowForm extends Component {
           {...formItemLayout}
           label={intl.formatMessage({ id: 'balance' })}
         >
-          <span className="ant-form-text">{symbol}</span>
+          <span className="ant-form-text">{item.collateralBalance}</span>
         </Form.Item>
         <Form.Item
           {...formItemLayout}
