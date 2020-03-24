@@ -5,8 +5,9 @@ import intlSaga from './intl'
 import walletSaga from './wallet'
 import balanceSaga from './balance'
 import transactionSaga from './transaction'
+import marketSaga from './market'
 import stakeSaga from './stake'
-import loanSaga from './loan'
+// import loanSaga from './loan'
 import socketSaga from './socket'
 import endPointSaga from './endPoint'
 import chainSaga from './chain'
@@ -17,8 +18,9 @@ const sagas = {
   walletSaga: fork(walletSaga),
   balanceSaga: fork(balanceSaga),
   transactionSaga: fork(transactionSaga),
+  marketSaga: fork(marketSaga),
   stakeSaga: fork(stakeSaga),
-  loanSaga: fork(loanSaga),
+  // loanSaga: fork(loanSaga),
   socketSaga: fork(socketSaga),
   endPointSaga: fork(endPointSaga),
   chainSaga: fork(chainSaga)

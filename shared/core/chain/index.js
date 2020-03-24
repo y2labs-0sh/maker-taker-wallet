@@ -96,6 +96,50 @@ export const save = async (sender, amount, sbtcAssetId) => {
   })
 }
 
+export const addBorrow = async (sender, borrowId, amount) => {
+  const api = await getPolkaApiForSender(sender)
+  return new Promise((resolve, reject) => {
+    api.tx.lsBiding.add(borrowId, amount).signAndSend(sender).then((res) => {
+      resolve(res)
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
+
+export const lendBorrow = async (sender, borrowId) => {
+  const api = await getPolkaApiForSender(sender)
+  return new Promise((resolve, reject) => {
+    api.tx.lsBiding.take(borrowId).signAndSend(sender).then((res) => {
+      resolve(res)
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
+
+export const repayBorrow = async (sender, borrowId) => {
+  const api = await getPolkaApiForSender(sender)
+  return new Promise((resolve, reject) => {
+    api.tx.lsBiding.repay(borrowId).signAndSend(sender).then((res) => {
+      resolve(res)
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
+
+export const makeBorrow = async (sender, collateral_balance, trading_pair, borrow_options) => {
+  const api = await getPolkaApiForSender(sender)
+  return new Promise((resolve, reject) => {
+    api.tx.lsBiding.make(collateral_balance, trading_pair, borrow_options).signAndSend(sender).then((res) => {
+      resolve(res)
+    }).catch((error) => {
+      reject(error)
+    })
+  })
+}
+
 export const redeem = async (sender, amount, rscAssetId) => {
   const api = await getPolkaApiForSender(sender)
 

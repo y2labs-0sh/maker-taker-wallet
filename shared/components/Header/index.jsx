@@ -8,7 +8,7 @@ import { Link, withRouter } from 'react-router-dom'
 import CreateWalletForm from 'components/Form/CreateWalletForm'
 import ImportWalletForm from 'components/Form/ImportWalletForm'
 import { allWalletsSelector, activeWalletSelector } from 'selectors/wallet'
-import { btcPriceSelector } from 'selectors/loan'
+// import { btcPriceSelector } from 'selectors/loan'
 import { setActiveWallet, exportPolkadotKeystore, deletePolkadotWallet } from 'actions/wallet'
 import PasswordPrompt from 'components/PasswordPrompt'
 import copy from 'copy-to-clipboard'
@@ -22,7 +22,7 @@ import styles from './style.css'
   state => ({
     activeWallet: activeWalletSelector(state),
     wallets: allWalletsSelector(state),
-    btcPrice: btcPriceSelector(state),
+    // btcPrice: btcPriceSelector(state),
     exportPolkadotKeystore: state.asyncRoutine.exportPolkadotKeystore || {},
     deletePolkadotWallet: state.asyncRoutine.deletePolkadotWallet || {}
   }),
@@ -117,11 +117,11 @@ export default class Header extends Component {
   }
 
   render() {
-    const { wallets, activeWallet, btcPrice, intl, exportPolkadotKeystore, deletePolkadotWallet } = this.props
+    const { wallets, activeWallet, intl, exportPolkadotKeystore, deletePolkadotWallet } = this.props
 
     const hasWallet = wallets.length > 0
     const activeAddress = activeWallet && activeWallet.address
-    const price = btcPrice ? intl.formatNumber(btcPrice, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '--'
+    // const price = btcPrice ? intl.formatNumber(btcPrice, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '--'
     const deleting = deletePolkadotWallet.requesting
     const exporting = exportPolkadotKeystore.requesting
 
@@ -166,7 +166,7 @@ export default class Header extends Component {
           <img src={Logo} alt="logo" />
         </Link>
         <Menu mode="horizontal" className={styles.leftMenu} selectedKeys={[this.state.activePath]} style={{ background: 'black' }}>
-          <Menu.Item key="asset">
+          {/* <Menu.Item key="asset">
             <Link to="asset" style={{ color: 'white' }}>
               {intl.formatMessage({ id: 'Asset' })}
             </Link>
@@ -185,10 +185,15 @@ export default class Header extends Component {
             <Link to="transaction" style={{ color: 'white' }}>
               {intl.formatMessage({ id: 'Transactions' })}
             </Link>
-          </Menu.Item>
+          </Menu.Item> */}
+          {/* <Menu.Item key="market">
+            <Link to="market" style={{ color: 'white' }}>
+              {intl.formatMessage({ id: 'Market' })}
+            </Link>
+          </Menu.Item> */}
         </Menu>
         <div className={styles.rightMenu}>
-          <div className={styles.price}>BTC Price: ${price}</div>
+          {/* <div className={styles.price}>BTC Price: ${price}</div> */}
           <Dropdown overlay={menu} placement="bottomLeft" style={{ height: '50px' }}>
             <a className={styles.profileMenu}>
               <div className={styles.avatar}>

@@ -22,11 +22,11 @@
     "lint": "eslint browser server shared test"
   },
   "dependencies": {
-    "@polkadot/api": "^0.100.1",
-    "@polkadot/api-contract": "^0.100.1",
+    "@polkadot/api": "^1.7.1",
+    "@polkadot/api-contract": "^1.7.1",
     "@polkadot/extension-dapp": "^0.13.1",
     "@polkadot/keyring": "^1.6.1",
-    "@polkadot/types": "^0.100.1",
+    "@polkadot/types": "^1.7.1",
     "@polkadot/util": "^1.6.1",
     "@polkadot/util-crypto": "^1.6.1",
     "@polkadot/wasm-crypto": "^0.14.1",

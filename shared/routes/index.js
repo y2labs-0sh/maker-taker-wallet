@@ -4,9 +4,10 @@ import {
   Asset,
   Transaction,
   Staking,
-  Loan,
+  // Loan,
   Setting,
-  Contact
+  Contact,
+  Market
 } from 'routes/sync'
 
 const routes = [
@@ -16,7 +17,7 @@ const routes = [
       {
         path: '/',
         exact: true,
-        component: Asset
+        component: Setting
       },
       {
         path: '/asset',
@@ -28,11 +29,11 @@ const routes = [
         exact: true,
         component: Transaction
       },
-      {
-        path: '/loan',
-        exact: true,
-        component: Loan
-      },
+      // {
+      //   path: '/loan',
+      //   exact: true,
+      //   component: Loan
+      // },
       {
         path: '/setting',
         exact: true,
@@ -47,6 +48,11 @@ const routes = [
         path: '/contact',
         exact: true,
         component: Contact
+      },
+      {
+        path: '/market',
+        exact: true,
+        component: Market
       },
       {
         path: '*',

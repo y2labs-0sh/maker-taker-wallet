@@ -45,8 +45,9 @@ function* createBalanceChannel(assetInfo) {
         })
       }
     } else {
-      api.query.balances.freeBalance(assetInfo.address, (balance) => {
-        emit(actions.updateBalance({ ...assetInfo, freeBalance: Number(balance) / 100000000 }))
+      //TODO, change to generic asset
+      api.query.balances.account(assetInfo.address, (balance) => {
+        emit(actions.updateBalance({ ...assetInfo, freeBalance: Number(balance.free) / 100000000 }))
       }).then((cancel) => {
         unsubscribeFreeBalanceAction = cancel
       })
