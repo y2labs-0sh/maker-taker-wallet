@@ -291,7 +291,7 @@ export default class Market extends Component {
     }]
 
     return (
-      <Card style={{ overflow: 'scroll' }}>
+      <Card>
         <Button type="primary" onClick={this.toggleMakeModal.bind(this)}>{intl.formatMessage({ id: 'make' })}</Button>
         <Table
           columns={columns}
