@@ -19,11 +19,11 @@ const routes = [
         exact: true,
         component: Market
       },
-      // {
-      //   path: '/asset',
-      //   exact: true,
-      //   component: Asset
-      // },
+      {
+        path: '/asset',
+        exact: true,
+        component: Asset
+      },
       // {
       //   path: '/transaction',
       //   exact: true,

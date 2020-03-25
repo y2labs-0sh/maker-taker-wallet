@@ -1,6 +1,6 @@
 import { syncComponent } from 'components/DynamicComponent'
 
-// export const Asset = syncComponent('Asset', require('pages/Asset'))
+export const Asset = syncComponent('Asset', require('pages/Asset'))
 // export const Transaction = syncComponent('Transaction', require('pages/Transaction'))
 // export const Staking = syncComponent('Staking', require('pages/Staking'))
 // export const Loan = syncComponent('Loan', require('pages/Loan'))

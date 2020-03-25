@@ -166,12 +166,12 @@ export default class Header extends Component {
           <img src={Logo} alt="logo" />
         </Link>
         <Menu mode="horizontal" className={styles.leftMenu} selectedKeys={[this.state.activePath]} style={{ background: 'black' }}>
-          {/* <Menu.Item key="asset">
+          <Menu.Item key="asset">
             <Link to="asset" style={{ color: 'white' }}>
               {intl.formatMessage({ id: 'Asset' })}
             </Link>
           </Menu.Item>
-          <Menu.Item key="loan">
+          {/* <Menu.Item key="loan">
             <Link to="loan" style={{ color: 'white' }}>
               {intl.formatMessage({ id: 'Loan' })}
             </Link>
