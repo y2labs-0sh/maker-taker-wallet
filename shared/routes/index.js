@@ -1,7 +1,7 @@
 import Root from 'pages/Root'
 import NoMatch from 'components/NoMatch'
 import {
-  // Asset,
+  Asset,
   // Transaction,
   // Staking,
   // Loan,
