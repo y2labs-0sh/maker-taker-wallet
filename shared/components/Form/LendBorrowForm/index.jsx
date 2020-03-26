@@ -43,6 +43,9 @@ const formItemLayout = {
 
 export default class LendBorrowForm extends Component {
   submit = async () => {
+    this.setState({
+      loading: true
+    })
     this.props.actions.lendBorrow.requested({
       borrowId: this.props.item.id,
       onSuccess: this.onSuccess,
@@ -50,12 +53,22 @@ export default class LendBorrowForm extends Component {
     })
   }
 
+  state = {
+    loading: '',
+  }
+
   onSuccess = () => {
+    this.setState({
+      loading: false
+    })
     this.props.reset()
     message.success('success!')
   }
 
   onError = (error) => {
+    this.setState({
+      loading: false
+    })
     message.error(error)
   }
 
@@ -65,6 +78,7 @@ export default class LendBorrowForm extends Component {
 
   render() {
     const { balance, intl, item, symbolsMapping } = this.props
+    const { loading } = this.state
     console.log(balance)
     // const symbol = balance ? balance.symbol : '--'
 
@@ -95,7 +109,7 @@ export default class LendBorrowForm extends Component {
           <span className="ant-form-text">{item.borrow_balance * item.interest_rate}</span>
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" onClick={this.submit.bind(this)} >{intl.formatMessage({ id: 'lend' })}</Button>
+          <Button loading={loading} type="primary" onClick={this.submit.bind(this)} >{intl.formatMessage({ id: 'lend' })}</Button>
         </Form.Item>
       </form>
     )

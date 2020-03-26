@@ -43,6 +43,9 @@ const formItemLayout = {
 
 export default class AddBorrowForm extends Component {
   submit = async () => {
+    this.setState({
+      loading: true
+    })
     this.props.actions.addBorrow.requested({
       borrowId: this.props.item.id,
       amount: this.state.collateralAmount,
@@ -52,7 +55,8 @@ export default class AddBorrowForm extends Component {
   }
 
   state = {
-    collateralAmount: ''
+    collateralAmount: '',
+    loading: '',
   }
 
   collateralChange(event) {
@@ -62,11 +66,17 @@ export default class AddBorrowForm extends Component {
   }
 
   onSuccess = () => {
+    this.setState({
+      loading: false
+    })
     this.props.reset()
     message.success('success added!')
   }
 
   onError = (error) => {
+    this.setState({
+      loading: false
+    })
     message.error(error)
   }
 
@@ -76,6 +86,7 @@ export default class AddBorrowForm extends Component {
 
   render() {
     const { balance, intl, item, symbolsMapping } = this.props
+    const { loading } = this.state
     console.log(balance)
     // const symbol = balance ? balance.symbol : '--'
 
@@ -101,7 +112,7 @@ export default class AddBorrowForm extends Component {
             center={true}
           /> */}
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" onClick={this.submit.bind(this)} >{intl.formatMessage({ id: 'add' })}</Button>
+          <Button loading={loading} type="primary" onClick={this.submit.bind(this)} >{intl.formatMessage({ id: 'add' })}</Button>
         </Form.Item>
       </form>
     )

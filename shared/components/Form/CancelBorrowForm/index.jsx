@@ -42,7 +42,14 @@ const formItemLayout = {
 )
 
 export default class CancelBorrowForm extends Component {
+  state = {
+    loading: '',
+  }
+
   submit = async () => {
+    this.setState({
+      loading: true
+    })
     this.props.actions.cancelBorrow.requested({
       borrowId: this.props.item.id,
       onSuccess: this.onSuccess,
@@ -51,11 +58,17 @@ export default class CancelBorrowForm extends Component {
   }
 
   onSuccess = () => {
+    this.setState({
+      loading: false
+    })
     this.props.reset()
     message.success('success canceled!')
   }
 
   onError = (error) => {
+    this.setState({
+      loading: false
+    })
     message.error(error)
   }
 
@@ -65,6 +78,7 @@ export default class CancelBorrowForm extends Component {
 
   render() {
     const { intl, item } = this.props
+    const { loading } = this.state
 
     return (
       <form>
@@ -76,7 +90,7 @@ export default class CancelBorrowForm extends Component {
         </Form.Item>
 
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" onClick={this.submit.bind(this)} >{intl.formatMessage({ id: 'cancel' })}</Button>
+          <Button loading={loading} type="primary" onClick={this.submit.bind(this)} >{intl.formatMessage({ id: 'cancel' })}</Button>
         </Form.Item>
       </form>
     )

@@ -124,7 +124,7 @@ export default class Market extends Component {
   showAddModal = async (record) => {
     const currentWallet = this.props.wallet.address
     const collateralBalance = await this.state.api.query.genericAsset.freeBalance(record.collateral_asset_id, currentWallet)
-    record.collateralBalance = collateralBalance.toString()
+    record.collateralBalance = (collateralBalance / (10 ** 8)).toString()
     this.setState({
       currentItem: record
     }, () => {
@@ -135,7 +135,7 @@ export default class Market extends Component {
   showLendModal = async (record) => {
     const currentWallet = this.props.wallet.address
     const borrowBalance = await this.state.api.query.genericAsset.freeBalance(record.borrow_asset_id, currentWallet)
-    record.borrowBalance = borrowBalance.toString()
+    record.borrowBalance = (borrowBalance / (10 ** 8)).toString()
     this.setState({
       currentItem: record
     }, () => {
@@ -146,7 +146,7 @@ export default class Market extends Component {
   showRepayModal = async (record) => {
     const currentWallet = this.props.wallet.address
     const borrowBalance = await this.state.api.query.genericAsset.freeBalance(record.borrow_asset_id, currentWallet)
-    record.borrowBalance = borrowBalance.toString()
+    record.borrowBalance = (borrowBalance / (10 ** 8)).toString()
     this.setState({
       currentItem: record
     }, () => {
@@ -264,11 +264,17 @@ export default class Market extends Component {
       title: intl.formatMessage({ id: 'borrowBalance' }),
       dataIndex: 'borrow_balance',
       key: 'borrow_balance',
+      render: (props, record) => (
+        <span>{record.borrow_balance / (10 ** 8)}</span>
+      )
     },
     {
       title: intl.formatMessage({ id: 'collateralBalance' }),
       dataIndex: 'collateral_balance',
       key: 'collateral_balance',
+      render: (props, record) => (
+        <span>{record.collateral_balance / (10 ** 8)}</span>
+      )
     },
     {
       title: intl.formatMessage({ id: 'terms' }),
@@ -323,6 +329,7 @@ export default class Market extends Component {
           dataSource={bidsArray}
           rowKey="id"
           loading={loadingTable}
+          scroll={{ x: true }}
           pagination={false}
           style={{ marginBottom: '40px' }}
         />

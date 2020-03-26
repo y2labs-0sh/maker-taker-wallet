@@ -43,6 +43,9 @@ const formItemLayout = {
 
 export default class MakeBorrowForm extends Component {
   submit = async () => {
+    this.setState({
+      loading: true
+    })
     this.props.actions.makeBorrow.requested({
       trading_pair: this.state.trading_pair,
       collateral_balance: this.state.collateral_balance,
@@ -62,7 +65,8 @@ export default class MakeBorrowForm extends Component {
     collateral_balance: '',
     amount: '',
     terms: '',
-    interest_rate: ''
+    interest_rate: '',
+    loading: false,
   }
 
   async componentDidMount() {
@@ -79,7 +83,7 @@ export default class MakeBorrowForm extends Component {
       //fetch collateral balance
       const collateralBalance = await api.query.genericAsset.freeBalance(this.state.trading_pair.collateral, this.props.address)
       this.setState({
-        collateralBalance: collateralBalance.toString()
+        collateralBalance: (collateralBalance / (10 ** 8)).toString()
       })
     })
   }
@@ -92,11 +96,17 @@ export default class MakeBorrowForm extends Component {
   }
 
   onSuccess = () => {
+    this.setState({
+      loading: false
+    })
     this.props.reset()
     message.success('success added!')
   }
 
   onError = (error) => {
+    this.setState({
+      loading: false
+    })
     message.error(error)
   }
 
@@ -107,6 +117,7 @@ export default class MakeBorrowForm extends Component {
   render() {
     const { balance, intl, symbolsMapping } = this.props
     console.log(balance)
+    const { loading } = this.state
     // const symbol = balance ? balance.symbol : '--'
     return (
       <form>
@@ -156,7 +167,7 @@ export default class MakeBorrowForm extends Component {
           {/* <span>{this.state.interest_rate * 365}% per year.</span> */}
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
-          <Button type="primary" onClick={this.submit.bind(this)} >{intl.formatMessage({ id: 'make' })}</Button>
+          <Button loading={loading} type="primary" onClick={this.submit.bind(this)} >{intl.formatMessage({ id: 'make' })}</Button>
         </Form.Item>
       </form>
     )
