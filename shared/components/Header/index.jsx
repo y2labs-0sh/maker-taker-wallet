@@ -186,11 +186,11 @@ export default class Header extends Component {
               {intl.formatMessage({ id: 'Transactions' })}
             </Link>
           </Menu.Item> */}
-          {/* <Menu.Item key="market">
+          <Menu.Item key="market">
             <Link to="market" style={{ color: 'white' }}>
-              {intl.formatMessage({ id: 'Market' })}
+              {intl.formatMessage({ id: 'p2p' })}
             </Link>
-          </Menu.Item> */}
+          </Menu.Item>
         </Menu>
         <div className={styles.rightMenu}>
           {/* <div className={styles.price}>BTC Price: ${price}</div> */}

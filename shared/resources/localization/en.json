@@ -215,5 +215,6 @@
   "collateral": "Collateral",
   "amount": "amount",
   "interest_rate": "Interest Rate",
-  "cancel":"Cancel"
+  "cancel":"Cancel",
+  "p2p":"P2P"
 }
